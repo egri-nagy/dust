@@ -1,4 +1,4 @@
-dustMakeDoc := function()
+DustMakeDoc := function()
     MakeGAPDocDoc(Concatenation( PackageInfo( "dust" )[1]!.InstallationPath, "/doc" ),
             "dust",[
                     "../lib/storage.gd",

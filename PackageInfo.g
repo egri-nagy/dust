@@ -53,13 +53,8 @@ PackageDoc := rec(
 
 
 Dependencies := rec(
- GAP := ">=4.5.4",
-                   NeededOtherPackages := [];
-#[["GAPDoc", ">= 1.2"],  #StringPrint
-                   #["citrus", ">= 0.1"], #orbit algorithms
-                   #["orb", ">= 3.7"], #hashtable functionalities
-                   #["viz", ">= 0.1"] #Draw, Splash
-                   #      ],
+ GAP := ">=4.5",
+ NeededOtherPackages := [["GAPDoc", ">= 1.2"]],  #StringPrint
  SuggestedOtherPackages := [ ],
  ExternalConditions := []
 ),

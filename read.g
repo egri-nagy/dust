@@ -1,6 +1,8 @@
 # read Implementation files
 ReadPackage("dust","/makedoc.g");
 
+ReadPackage("dust","/lib/listfunctions.g");
+
 #storage
 ReadPackage("dust","/lib/stack.gi");
 ReadPackage("dust","/lib/queue.gi");

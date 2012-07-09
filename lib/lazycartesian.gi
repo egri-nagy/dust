@@ -24,7 +24,7 @@ local size, bases, i;
   #the ones are at the last digit
   bases := [1];      
   for i in [1..Length(sets)-1] do
-    Add(bases, Length(sets[i]) * LastElementOfList(bases));
+    Add(bases, Length(sets[i]) * bases[Length(bases)]);
   od;                    
   return Objectify(LazyCartesianType, rec(sets := sets,bases:=bases, size := size));
 end

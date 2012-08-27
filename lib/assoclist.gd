@@ -10,6 +10,7 @@ DeclareGlobalFunction("Assign");
 DeclareGlobalFunction("Keys");
 DeclareGlobalFunction("CombinedAssociativeList");
 DeclareGlobalFunction("ReversedAssociativeList");
+DeclareGlobalFunction("WriteAssociativeListToFile");
 
 #the type info
 DeclareCategory("IsAssociativeList", IsDenseList);

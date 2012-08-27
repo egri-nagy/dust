@@ -6,7 +6,7 @@
 ##
 
 #construct an associative list loaded based on keys and values
-InstallMethod(AssociativeList,"for two lists", true, [IsList, IsList],0,
+InstallMethod(AssociativeList,"for two lists", true, [IsList, IsList],
 function(keys, values)
   local assoclist,i,pos;
   #sanity check
@@ -30,7 +30,7 @@ end);
 
 #an empty associative list
 InstallOtherMethod(AssociativeList,
-        "empty assoclist", true, [],0,
+        "empty assoclist", true, [],
 function()
   return Objectify(AssociativeListType,
                  rec(keys:=[], values:=[]));
@@ -69,16 +69,15 @@ function( assoclist, key )
   else
     return fail;
   fi;
-end
-);
+end);
 
 #if the keyset is the same then we can combine the values
 InstallGlobalFunction(CombinedAssociativeList,
 function(l1,l2)
 local k, l;
-  if Keys(l1) <> Keys(l2) then 
-      Print("#W Different keysets cannot be combined!\n");      
-      return fail;      
+  if Keys(l1) <> Keys(l2) then
+      Print("#W Different keysets cannot be combined!\n");
+      return fail;
   fi;
   l :=  AssociativeList();
   for k in Keys(l1) do
@@ -93,24 +92,23 @@ function(al)
 local nl,k,val,l;
   nl := AssociativeList();
   for k in Keys(al) do
-      val := al[k];      
+      val := al[k];
       if val in Keys(nl) then
           l := nl[val];
           AddSet(l,k);
       else
           Assign(nl,val,[k]);
       fi;
-  od;  
-  return nl;  
+  od;
+  return nl;
 end);
 
 InstallOtherMethod(\=, "for two associative lists", IsIdenticalObj,
-        [IsAssociativeList, 
-         IsAssociativeList], 0, 
-    function(A, B) 
-        return  A!.keys = B!.keys and A!.values = B!.values;
-    end);
-
+        [IsAssociativeList,
+         IsAssociativeList],
+function(A, B)
+  return  A!.keys = B!.keys and A!.values = B!.values;
+end);
 
 InstallMethod( PrintObj,"for an associative list",
         [ IsAssociativeList ],
@@ -123,4 +121,18 @@ local key;
       Print(key," -> ", al[key],"\n");
     od;
   fi;
+end);
+
+InstallGlobalFunction(WriteAssociativeListToFile,
+function(al, filename)
+local file,key;
+  file := OutputTextFile(filename, false);
+  for key in Keys(al) do
+    WriteLine(file,
+            Concatenation(
+                    String(key),
+                    ":",
+                    String(al[key])));
+  od;
+  CloseStream(file);
 end);

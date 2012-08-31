@@ -57,6 +57,18 @@ function(assoclist)
     return assoclist!.keys;
 end);
 
+#it gives back the keys
+InstallGlobalFunction(TransformKeys,
+function(assoclist,funct)
+local k,al;
+  al := AssociativeList();
+  Perform(assoclist!.keys,
+          function(k)
+            Assign(al, funct(k), assoclist[k]);
+          end);
+  return al;
+end);
+
 #accessing elements by arbitrary indices
 InstallOtherMethod( \[\],
     "for associative lists",

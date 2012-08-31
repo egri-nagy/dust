@@ -8,6 +8,7 @@
 DeclareOperation("AssociativeList",[IsList,IsList]);
 DeclareGlobalFunction("Assign");
 DeclareGlobalFunction("Keys");
+DeclareGlobalFunction("TransformKeys");
 DeclareGlobalFunction("CombinedAssociativeList");
 DeclareGlobalFunction("ReversedAssociativeList");
 DeclareGlobalFunction("WriteAssociativeListToFile");

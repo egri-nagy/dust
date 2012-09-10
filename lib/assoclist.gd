@@ -11,6 +11,7 @@ DeclareGlobalFunction("Keys");
 DeclareGlobalFunction("TransformKeys");
 DeclareGlobalFunction("TransformValues");
 DeclareGlobalFunction("CombinedAssociativeList");
+DeclareGlobalFunction("UnionAssociativeList");
 DeclareGlobalFunction("ReversedAssociativeList");
 DeclareGlobalFunction("WriteAssociativeListToFile");
 

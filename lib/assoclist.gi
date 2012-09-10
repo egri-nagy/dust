@@ -130,10 +130,10 @@ end);
 
 #if the keyset is the same then we can combine the values
 InstallGlobalFunction(UnionAssociativeList,
-function(arg)
+function(als)
 local k, al,nal;
   nal := AssociativeList();
-  for al in arg do
+  for al in als do
     for k in Keys(al) do
       Assign(nal, k, al[k]);
     od;

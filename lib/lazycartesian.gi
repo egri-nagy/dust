@@ -17,7 +17,7 @@ InstallGlobalFunction("LazyCartesian",
 function(sets)
 local size, bases, i;
   #doing the empty list
-  if IsEmpty(sets) then return [sets]; fi;
+  if IsEmpty(sets) then return []; fi;
   #calculating the size of the cartesian product                    
   size := Product(List(sets, x -> Length(x)));
   #obtaining the bases for the digit positions

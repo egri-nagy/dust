@@ -113,3 +113,9 @@ InstallMethod(Length,"for lazy cartesian products",true,[IsLazyCartesian],
 function(lazycart)
   return lazycart!.size;
 end);
+
+InstallMethod( PrintObj,"for a lazy cartesian",
+        [ IsLazyCartesian ],
+function( lc )
+    Print("lazy cartesian product of ", Size(lc!.sets), " sets");
+end);

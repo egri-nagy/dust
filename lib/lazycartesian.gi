@@ -1,6 +1,6 @@
 #############################################################################
 ##
-## lazycartesian.gi           SgpDec package  
+## lazycartesian.gi           SgpDec package
 ##
 ## Copyright (C)  Attila Egri-Nagy, Chrystopher L. Nehaniv
 ##
@@ -18,17 +18,16 @@ function(sets)
 local size, bases, i;
   #doing the empty list
   if IsEmpty(sets) then return []; fi;
-  #calculating the size of the cartesian product                    
+  #calculating the size of the cartesian product
   size := Product(List(sets, x -> Length(x)));
   #obtaining the bases for the digit positions
   #the ones are at the last digit
-  bases := [1];      
+  bases := [1];
   for i in [1..Length(sets)-1] do
     Add(bases, Length(sets[i]) * bases[Length(bases)]);
-  od;                    
-  return Objectify(LazyCartesianType, rec(sets := sets,bases:=bases, size := size));
-end
-);
+  od;
+  return Objectify(LazyCartesianType,rec(sets:=sets,bases:=bases,size:=size));
+end);
 
 #Just augments the prefix with the first element of the remaining state sets.
 #InstallGlobalFunction("LazyCartesianFirstWithPrefix",
@@ -69,7 +68,7 @@ local coords,i,remainder,tmp,bases, sets,n;
   bases := lazycart!.bases;
   sets := lazycart!.sets;
   n := Length(bases);
-  
+
   #adjusting to zero start
   pos := pos - 1;
 
@@ -80,17 +79,16 @@ local coords,i,remainder,tmp,bases, sets,n;
     Add(coords, pos / bases[i]);
     pos := remainder;
   od;
-  #adding the 1s                   
-  Add(coords,pos);                   
-  
+  #adding the 1s
+  Add(coords,pos);
+
   #translating coords the real values from sets (reusing the list)
-  coords := Reversed(coords);                   
+  coords := Reversed(coords);
   for i in [1..Length(coords)] do
     coords[i] := sets[i][coords[i]+1]; #+1 is the correction
-  od;                   
+  od;
   return coords;
-end 
-);
+end);
 
 InstallMethod( PositionCanonical,
     "for lazy cartesians",
@@ -102,20 +100,16 @@ local i,sum,bases,sets,n;
   sets := lazycart!.sets;
   n := Length(coords);
 
-  sum := 0;             
+  sum := 0;
   for i in [1..Length(coords)] do
     sum := sum + ((Position(sets[i],coords[i])-1) * bases[i]);
   od;
   #adjusting to one start
   return sum+1;
-end );
-
-
+end);
 
 # The size of the cartesian product.
 InstallMethod(Length,"for lazy cartesian products",true,[IsLazyCartesian],
 function(lazycart)
   return lazycart!.size;
-end
-);
-
+end);

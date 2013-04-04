@@ -29,6 +29,24 @@ local grades, grfuncs, n, cursor, i;
   AddSet(cursor,obj);
 end);
 
+InstallOtherMethod(\in, "for a multi graded set and an object",
+        [IsObject, IsMultiGradedSet],
+function(obj,mgs)
+local grades, grfuncs, n, cursor, i;
+  grfuncs := mgs!.gradingfuncs;
+  n := Size(grfuncs);
+  grades := List([1..n],i -> grfuncs[i](obj) );
+  cursor := mgs!.table;
+  for i in [1..n] do
+    if not IsBound(cursor[grades[i]]) then
+      return false;
+    fi;
+    cursor := cursor[grades[i]];
+  od;
+  return obj in cursor;
+end);
+
+
 InstallOtherMethod(\=, "for two multi graded sets", IsIdenticalObj,
         [IsMultiGradedSet,
          IsMultiGradedSet],
@@ -46,3 +64,23 @@ local key;
 
   fi;
 end);
+
+# for n=8 speedup is 10x, memrory usage difference is negligeble
+TestMultiGradedSetPerformance := function(n)
+  local sl, mgs, partitions,p,t;
+  partitions := PartitionsSet([1..n]);
+  t := Runtime();
+  sl := [];
+  for p in partitions do
+    AddSet(sl,p);
+  od;
+  Print("Sorted list was filled up in ", Runtime()-t, "ms, using ",
+        MemoryUsage(sl), " bytes of memory.\n");
+  t := Runtime();
+  mgs := MultiGradedSet([Size,x->Size(x[1])]);
+  for p in partitions do
+    AddSet(mgs,p);
+  od;
+  Print("2-level multigraded set  was filled up in ", Runtime()-t, "ms, using ",
+        MemoryUsage(mgs), " bytes of memory.\n");
+end;

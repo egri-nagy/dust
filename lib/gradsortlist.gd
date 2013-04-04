@@ -1,16 +1,15 @@
 ################################################################################
 ##
-## Graded Sorted List (declarations)
+## Multi Graded Set (declarations)
 ##
-## Copyright (C)  Attila Egri-Nagy
+## Copyright (C) 2013  Attila Egri-Nagy
 ##
 
-DeclareGlobalFunction("GradedSortedList");
+DeclareGlobalFunction("MultiGradedSet");
 
-#the type info
-DeclareCategory("IsGradedSortedList", IsSortedList);
-DeclareRepresentation( "IsGradedSortedListRep",IsComponentObjectRep,
+DeclareCategory("IsMultiGradedSet", IsSortedList);
+DeclareRepresentation( "IsMultiGradedSetRep",IsComponentObjectRep,
         [ "table", "gradingfuncs"] );
-GradedSortedListType  :=
-  NewType(NewFamily("GradedSortedListFamily",IsGradedSortedList),
-          IsGradedSortedList and IsGradedSortedListRep);
+MultiGradedSetType  :=
+  NewType(NewFamily("MultiGradedSetFamily",IsMultiGradedSet),
+          IsMultiGradedSet and IsMultiGradedSetRep);

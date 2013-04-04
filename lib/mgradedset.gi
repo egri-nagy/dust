@@ -54,16 +54,53 @@ function(A, B)
   return  A!.table = B!.table; # TODO shall we check the grading functions?
 end);
 
+InstallMethod( AsList,"for a multigraded set",
+        [ IsMultiGradedSet ],
+function(mgs)
+local l,recursivecollect,n;
+  n := Size(mgs!.gradingfuncs);
+  #-----------------------------------------------------------------------------
+  recursivecollect := function(table, level, bag)
+    local i;
+    if level < n then
+      for i in [1..Size(table)] do
+        if IsBound(table[i]) then
+          recursivecollect(table[i],level+1,bag);
+        fi;
+      od;
+    else
+      for i in [1..Size(table)] do
+        if IsBound(table[i]) then
+          Append(bag, table[i]);
+        fi;
+      od;
+    fi;
+  end;
+  #-----------------------------------------------------------------------------
+  l := [];
+  recursivecollect(mgs!.table, 1, l);
+  return l;
+end);
+
+
 InstallMethod( PrintObj,"for a multigraded set",
         [ IsMultiGradedSet ],
 function(mgs)
 local key;
   if IsEmpty(mgs!.table) then
-    Print("<empty multi graded set>");
+    Print("<empty multi graded set with ",Size(mgs!.gradingfuncs) ," layers>");
   else
-
+    Print("<multi graded set with ",Size(mgs!.gradingfuncs) ," layers>");
   fi;
 end);
+
+TestMultiGradedSetCorrectness := function()
+local T,mgs;
+  T := FullTransformationSemigroup(6);
+  mgs := MultiGradedSet([x->1^x, x->2^x, x->3^x, x->4^x]);
+  Perform(T, function(t) AddSet(mgs,t);end);
+  return Size(AsSet(AsList(mgs))) = Size(T);
+end;
 
 # for n=8 speedup is 10x, memrory usage difference is negligeble
 TestMultiGradedSetPerformance := function(n)

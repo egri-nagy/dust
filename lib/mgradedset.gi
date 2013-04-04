@@ -82,6 +82,33 @@ local l,recursivecollect,n;
   return l;
 end);
 
+InstallMethod(Size,"for a multigraded set", #TODO maybe counting when adding?
+        [ IsMultiGradedSet ],
+function(mgs)
+local recursivesum,n;
+  n := Size(mgs!.gradingfuncs);
+  #-----------------------------------------------------------------------------
+  recursivesum := function(table, level)
+    local i,sum;
+    sum := 0;
+    if level < n then
+      for i in [1..Size(table)] do
+        if IsBound(table[i]) then
+          sum := sum + recursivesum(table[i],level+1);
+        fi;
+      od;
+    else
+      for i in [1..Size(table)] do
+        if IsBound(table[i]) then
+          sum := sum + Size(table[i]);
+        fi;
+      od;
+    fi;
+    return sum;
+  end;
+  #-----------------------------------------------------------------------------
+  return recursivesum(mgs!.table, 1);
+end);
 
 InstallMethod( PrintObj,"for a multigraded set",
         [ IsMultiGradedSet ],
@@ -90,7 +117,8 @@ local key;
   if IsEmpty(mgs!.table) then
     Print("<empty multi graded set with ",Size(mgs!.gradingfuncs) ," layers>");
   else
-    Print("<multi graded set with ",Size(mgs!.gradingfuncs) ," layers>");
+    Print("<multi graded set with ",Size(mgs), " elements in ",
+          Size(mgs!.gradingfuncs) ," layers>");
   fi;
 end);
 

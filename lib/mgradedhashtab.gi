@@ -22,11 +22,15 @@ local grades, grfuncs, n, cursor, i;
   cursor := mgs!.table;
   for i in [1..n] do
     if not IsBound(cursor[grades[i]]) then
-      cursor[grades[i]] := [];
+      if i < n then
+        cursor[grades[i]] := [];
+      else
+        cursor[grades[i]] := HTCreate(obj);
+      fi;
     fi;
     cursor := cursor[grades[i]];
   od;
-  AddSet(cursor,obj);
+  HTAdd(cursor,obj,true);
 end);
 
 InstallOtherMethod(\in, "for a multi graded set and an object",
@@ -43,7 +47,7 @@ local grades, grfuncs, n, cursor, i;
     fi;
     cursor := cursor[grades[i]];
   od;
-  return obj in cursor;
+  return HTValue(cursor,obj)=true; # to deal with potential fail
 end);
 
 
@@ -57,7 +61,7 @@ end);
 InstallMethod( AsList,"for a multigraded set",
         [ IsMultiGradedHashtab ],
 function(mgs)
-local l,recursivecollect,n;
+local l,recursivecollect,n,tmp;
   n := Size(mgs!.gradingfuncs);
   #-----------------------------------------------------------------------------
   recursivecollect := function(table, level, bag)
@@ -71,7 +75,9 @@ local l,recursivecollect,n;
     else
       for i in [1..Size(table)] do
         if IsBound(table[i]) then
-          Append(bag, table[i]);
+          tmp := Compacted(table[i]!.els);
+          Remove(tmp); #removing the last fail
+          Append(bag, tmp);
         fi;
       od;
     fi;
@@ -100,7 +106,7 @@ local recursivesum,n;
     else
       for i in [1..Size(table)] do
         if IsBound(table[i]) then
-          sum := sum + Size(table[i]);
+          sum := sum + table[i]!.nr; #TODO low-level access
         fi;
       od;
     fi;

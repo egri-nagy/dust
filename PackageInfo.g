@@ -4,9 +4,9 @@ PackageName := "dust",
 
 Subtitle := "Extra Data Strucutre for GAP",
 
-Version := "0.1.6",
+Version := "0.1.7",
 
-Date := "04/04/2013",
+Date := "24/06/2013",
 
 ArchiveURL := "http://sgpdec.sf.net",
 

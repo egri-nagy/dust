@@ -14,6 +14,7 @@ DeclareGlobalFunction("CombinedAssociativeList");
 DeclareGlobalFunction("UnionAssociativeList");
 DeclareGlobalFunction("ReversedAssociativeList");
 DeclareGlobalFunction("WriteAssociativeListToFile");
+DeclareGlobalFunction("MaxValueInAssociativeList");
 
 #the type info
 DeclareCategory("IsAssociativeList", IsDenseList);

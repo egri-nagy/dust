@@ -162,6 +162,9 @@ local key;
   fi;
 end);
 
+InstallGlobalFunction(MaxValueInAssociativeList,
+function(al) return Maximum(al!.values); end);
+
 InstallGlobalFunction(WriteAssociativeListToFile,
 function(al, filename)
 local file,key;

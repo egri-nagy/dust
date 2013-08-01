@@ -1,12 +1,10 @@
 #############################################################################
 ##
-## queue.gd           SgpDec package  
+## queue.gd           Dust package
 ##
-## Copyright (C)  Attila Egri-Nagy, Chrystopher L. Nehaniv
+## Copyright (C)  Attila Egri-Nagy 2011-2013
 ##
-## 2010 University of Hertfordshire, Hatfield, UK
-##
-## Simple stack implementation.
+## Simple queue implementation.
 ##
 
 DeclareCategory("IsQueue", IsStorage);
@@ -25,14 +23,12 @@ QueueType  := NewType(
 ##  <ManSection><Heading>Creating an empty queue</Heading>
 ##   <Func Name="Queue" Arg=""/>
 ##    <Description>
-##    Creates an empty queue.    
+##    Creates an empty queue.
 ##    <Example>
 ##     gap&gt; queue := Queue()
 ##     Queue: -&gt;[  ]
-##    </Example> 
+##    </Example>
 ##   </Description>
 ##  </ManSection>
 ## <#/GAPDoc>
 DeclareGlobalFunction("Queue");
-
-

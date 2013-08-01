@@ -1,10 +1,8 @@
 #############################################################################
 ##
-## stack.gd           SgpDec package  
+## stack.gd           Dust package
 ##
-## Copyright (C)  Attila Egri-Nagy, Chrystopher L. Nehaniv
-##
-## 2010 University of Hertfordshire, Hatfield, UK
+## Copyright (C)  Attila Egri-Nagy 2011-2013
 ##
 ## Simple stack implementation.
 ##
@@ -25,14 +23,12 @@ StackType  := NewType(
 ##  <ManSection><Heading>Creating an empty stack</Heading>
 ##   <Func Name="Stack" Arg=""/>
 ##    <Description>
-##    Creates an empty stack.    
+##    Creates an empty stack.
 ##    <Example>
 ##     gap&gt; stack := Stack()
 ##     Stack: [  ]&lt;-
-##    </Example> 
+##    </Example>
 ##   </Description>
 ##  </ManSection>
 ## <#/GAPDoc>
 DeclareGlobalFunction("Stack");
-
-

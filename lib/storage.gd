@@ -1,10 +1,8 @@
 #############################################################################
 ##
-## storage.gd           SgpDec package  
+## storage.gd           Dust package
 ##
-## Copyright (C)  Attila Egri-Nagy, Chrystopher L. Nehaniv
-##
-## 2010 University of Hertfordshire, Hatfield, UK
+## Copyright (C)  Attila Egri-Nagy 2011-2013
 ##
 ## Abstract type for different kind of storage data structures (stack, queue).
 ##

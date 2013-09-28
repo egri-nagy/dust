@@ -5,5 +5,6 @@ ReadPackage("dust","/makedoc.g");
 ReadPackage("dust","/lib/stack.gi");
 ReadPackage("dust","/lib/queue.gi");
 ReadPackage("dust","/lib/assoclist.gi");
+ReadPackage("dust","/lib/indexedset.gi");
 ReadPackage("dust","/lib/mgradedset.gi");
 ReadPackage("dust","/lib/mgradedhashtab.gi");

@@ -1,5 +1,7 @@
+0.1.9
+	IndexedSet with preallocated storage added.
 0.1.8
-	Code review in Storage, Stack, Queue. LazyCartesian removed. 
+	Code review in Storage, Stack, Queue. LazyCartesian removed.
 0.1.7
 	MaxValueInAssociativeList added.
 0.1.6

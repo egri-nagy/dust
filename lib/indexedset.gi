@@ -12,43 +12,44 @@ end;
 
 #construct an associative list loaded based on keys and values
 InstallGlobalFunction(IndexedSet,
-function(indexfunctions, maxindices) #positive integer valued functions
-  local enum;
+function(depth, indexer, maxindices) #positive integer valued functions
   return Objectify(IndexedSetType,
-                 rec(table := ListCreator(maxindices),indexfuncs := indexfunctions));
+                 rec(depth:=depth,
+                     table := ListCreator(maxindices),
+                     indexer := indexer));
 end);
 
-InstallOtherMethod(AddSet, "for a dynamic indexed set  and an object",
+InstallOtherMethod(AddSet, "for a fixed indexed set  and an object",
         [IsIndexedSet,IsObject],
 function(mgs, obj)
 local cursor, i;
   cursor := mgs!.table;
-  for i in List(mgs!.indexfuncs, f -> f(obj)) do cursor := cursor[i]; od;
+  for i in mgs!.indexer(obj) do cursor := cursor[i]; od;
   AddSet(cursor,obj);
 end);
 
-InstallOtherMethod(\in, "for a dynamic indexed set and an object",
+InstallOtherMethod(\in, "for a fixed indexed set and an object",
         [IsObject, IsIndexedSet],
 function(obj,mgs)
 local cursor,i;
   cursor := mgs!.table;
-  for i in List(mgs!.indexfuncs, f -> f(obj)) do cursor := cursor[i]; od;
+  for i in mgs!.indexer(obj) do cursor := cursor[i]; od;
   return obj in cursor;
 end);
 
 
-InstallOtherMethod(\=, "for dynamic indexed sets", IsIdenticalObj,
+InstallOtherMethod(\=, "for fixed indexed sets", IsIdenticalObj,
         [IsIndexedSet,
          IsIndexedSet],
 function(A, B)
   return  A!.table = B!.table; # TODO shall we check the grading functions?
 end);
 
-InstallMethod( AsList,"for a dynamic indexed set",
+InstallMethod( AsList,"for a fixed indexed set",
         [ IsIndexedSet ],
 function(mgs)
 local l,recursivecollect,n;
-  n := Size(mgs!.indexfuncs);
+  n := mgs!.depth;
   #-----------------------------------------------------------------------------
   recursivecollect := function(table, level, bag)
     local i;
@@ -70,7 +71,7 @@ end);
 
 IndexedSetDistribution := function(mgs)
 local l,recursivedistrib,n;
-  n := Size(mgs!.indexfuncs);
+  n := mgs!.depth;#Size(mgs!.indexfuncs);
   #-----------------------------------------------------------------------------
   recursivedistrib := function(table, level, distr)
     local i;
@@ -91,11 +92,11 @@ local l,recursivedistrib,n;
 end;
 
 
-InstallMethod(Size,"for a dynamic indexed set", #TODO maybe counting when adding?
+InstallMethod(Size,"for a fixed indexed set", #TODO maybe counting when adding?
         [ IsIndexedSet ],
 function(mgs)
 local recursivesum,n;
-  n := Size(mgs!.indexfuncs);
+  n := mgs!.depth;#Size(mgs!.indexfuncs);
   #-----------------------------------------------------------------------------
   recursivesum := function(table, level)
     local i,sum;
@@ -115,7 +116,7 @@ local recursivesum,n;
   return recursivesum(mgs!.table, 1);
 end);
 
-InstallMethod( PrintObj,"for a dynamic indexed set",
+InstallMethod( PrintObj,"for a fixed indexed set",
         [ IsIndexedSet ],
 function(mgs)
 local key;
@@ -130,7 +131,9 @@ end);
 TestIndexedSetCorrectness := function()
 local T,mgs;
   T := FullTransformationSemigroup(6);
-  mgs := IndexedSet([x->1^x, x->2^x, x->3^x, x->4^x],[6,6,6,6]);
+  mgs := IndexedSet(4,
+                 obj -> List([x->1^x, x->2^x, x->3^x, x->4^x], f->f(obj)),
+                 [6,6,6,6]);
   Perform(T, function(t) AddSet(mgs,t);end);
   return Size(AsSet(AsList(mgs))) = Size(T);
 end;
@@ -147,12 +150,14 @@ TestIndexedSetPerformance := function(n)
   Print("Sorted list was filled up in ", Runtime()-t, "ms, using ",
         MemoryUsage(sl), " bytes of memory.\n");
 
-  mgs := IndexedSet([Size,x->Size(x[1]),x->Size(x[Size(x)]) ],[n,n,n]);
+  mgs := IndexedSet(3,
+                 obj -> List([Size,x->Size(x[1]),x->Size(x[Size(x)]) ], f->f(obj)),
+                 [n,n,n]);
   t := Runtime();
   for p in partitions do
     AddSet(mgs,p);
   od;
-  Print("2-level dynamic indexed set was filled up in ", Runtime()-t, "ms, using ",
+  Print("2-level fixed indexed set was filled up in ", Runtime()-t, "ms, using ",
         MemoryUsage(mgs), " bytes of memory.\n");
   Print("Distribution of ", Size(mgs), " elements:",
         IndexedSetDistribution(mgs),"\n");

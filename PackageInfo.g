@@ -4,7 +4,7 @@ PackageName := "dust",
 
 Subtitle := "Extra Data Strucutre for GAP",
 
-Version := "0.1.9",
+Version := "0.1.10",
 
 Date := "28/09/2013",
 

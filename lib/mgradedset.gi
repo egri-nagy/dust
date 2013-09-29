@@ -1,6 +1,6 @@
 ################################################################################
 ##
-## Multi Graded Set (implementation)
+## Dynamic Indexed Set (implementation)
 ##
 ## Copyright (C)  2013 Attila Egri-Nagy
 ##
@@ -11,7 +11,7 @@ function(indexers) #positive integer valued functions
                  rec(table := [],indexers := indexers, depth:=Size(indexers)));
 end);
 
-InstallOtherMethod(AddSet, "for a multi graded set and an object",
+InstallOtherMethod(AddSet, "for a dynamic indexed set and an object",
         [IsDynamicIndexedSet,IsObject],
 function(dis, obj)
 local cursor, i;
@@ -25,7 +25,7 @@ local cursor, i;
   AddSet(cursor,obj);
 end);
 
-InstallOtherMethod(\in, "for a multi graded set and an object",
+InstallOtherMethod(\in, "for a dynamic indexed set and an object",
         [IsObject, IsDynamicIndexedSet],
 function(obj,dis)
 local val, cursor, i;
@@ -40,15 +40,15 @@ local val, cursor, i;
   return obj in cursor;
 end);
 
-InstallOtherMethod(\=, "for two multi graded sets", IsIdenticalObj,
+InstallOtherMethod(\=, "for two dynamic indexed sets", IsIdenticalObj,
         [IsDynamicIndexedSet,IsDynamicIndexedSet],
-function(A, B) return  AsSet(A) = AsSet(B); end);
+function(A, B) return  AsSortedList(A) = AsSortedList(B); end);
 
 InstallMethod( AsList,"for a dynamic indexed set",
         [ IsDynamicIndexedSet ],
 function(dis)
 local l,recursivecollect,n;
-  n := Size(dis!.indexers);
+  n := dis!.depth;
   #-----------------------------------------------------------------------------
   recursivecollect := function(table, level, bag)
     local i;
@@ -76,16 +76,16 @@ InstallMethod( AsSortedList,"for a dynamic indexed set",
         [ IsDynamicIndexedSet ],
 function(dis)
   local l;
-  l := AsList(dis);
+  l := ShallowCopy(AsList(dis));
   Sort(l);
   return l;
 end);
 
-InstallMethod(Size,"for a multigraded set", #TODO maybe counting when adding?
+InstallMethod(Size,"for a dynamic indexed set", #TODO maybe counting when adding?
         [ IsDynamicIndexedSet ],
 function(dis)
 local recursivesum,n;
-  n := Size(dis!.indexers);
+  n := dis!.depth;
   #-----------------------------------------------------------------------------
   recursivesum := function(table, level)
     local i,sum;
@@ -109,14 +109,14 @@ local recursivesum,n;
   return recursivesum(dis!.table, 1);
 end);
 
-InstallMethod( PrintObj,"for a multigraded set",
+InstallMethod( PrintObj,"for a dynamic indexed set",
         [ IsDynamicIndexedSet ],
 function(dis)
 local key;
   if IsEmpty(dis!.table) then
-    Print("<empty multi graded set with ",Size(dis!.indexers) ," layers>");
+    Print("<empty dynamic indexed set with ",Size(dis!.indexers) ," layers>");
   else
-    Print("<multi graded set with ",Size(dis), " elements in ",
+    Print("<dynamic indexed set with ",Size(dis), " elements in ",
           Size(dis!.indexers) ," layers>");
   fi;
 end);
@@ -150,12 +150,11 @@ TestDynamicIndexedSetPerformance := function(n)
   for p in partitions do
     AddSet(dis,p);
   od;
-  Print("2-level multigraded set  was filled up in ", Runtime()-t, "ms, using ",
+  Print("2-level dynamic indexed set  was filled up in ", Runtime()-t, "ms, using ",
         MemoryUsage(dis), " bytes of memory.\n");
   t := Runtime();
   for p in partitions do
     b := p in dis;
   od;
   Print("Dynamic indedexed set membership testing  ", Runtime()-t, "ms\n");
-  
 end;

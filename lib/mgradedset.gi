@@ -1,30 +1,26 @@
-#############################################################################
+################################################################################
 ##
 ## Multi Graded Set (implementation)
 ##
 ## Copyright (C)  2013 Attila Egri-Nagy
 ##
 
-#construct an associative list loaded based on keys and values
 InstallGlobalFunction(DynamicIndexedSet,
-function(gradingfunctions) #positive integer valued functions
+function(indexers) #positive integer valued functions
   return Objectify(DynamicIndexedSetType,
-                 rec(table := [],gradingfuncs := gradingfunctions));
+                 rec(table := [],indexers := indexers, depth:=Size(indexers)));
 end);
 
 InstallOtherMethod(AddSet, "for a multi graded set and an object",
         [IsDynamicIndexedSet,IsObject],
 function(dis, obj)
-local grades, grfuncs, n, cursor, i;
-  grfuncs := dis!.gradingfuncs;
-  n := Size(grfuncs);
-  grades := List([1..n],i -> grfuncs[i](obj) );
+local cursor, i;
   cursor := dis!.table;
-  for i in [1..n] do
-    if not IsBound(cursor[grades[i]]) then
-      cursor[grades[i]] := [];
+  for i in List(dis!.indexers, f->f(obj)) do
+    if not IsBound(cursor[i]) then
+      cursor[i] := [];
     fi;
-    cursor := cursor[grades[i]];
+    cursor := cursor[i];
   od;
   AddSet(cursor,obj);
 end);
@@ -32,33 +28,27 @@ end);
 InstallOtherMethod(\in, "for a multi graded set and an object",
         [IsObject, IsDynamicIndexedSet],
 function(obj,dis)
-local grades, grfuncs, n, cursor, i;
-  grfuncs := dis!.gradingfuncs;
-  n := Size(grfuncs);
-  grades := List([1..n],i -> grfuncs[i](obj) );
+local val, cursor, i;
   cursor := dis!.table;
-  for i in [1..n] do
-    if not IsBound(cursor[grades[i]]) then
+  for i in [1..dis!.depth] do
+    val := dis!.indexers[i](obj);
+    if not IsBound(cursor[val]) then
       return false;
     fi;
-    cursor := cursor[grades[i]];
+    cursor := cursor[val];
   od;
   return obj in cursor;
 end);
 
-
 InstallOtherMethod(\=, "for two multi graded sets", IsIdenticalObj,
-        [IsDynamicIndexedSet,
-         IsDynamicIndexedSet],
-function(A, B)
-  return  A!.table = B!.table; # TODO shall we check the grading functions?
-end);
+        [IsDynamicIndexedSet,IsDynamicIndexedSet],
+function(A, B) return  AsSet(A) = AsSet(B); end);
 
-InstallMethod( AsList,"for a multigraded set",
+InstallMethod( AsList,"for a dynamic indexed set",
         [ IsDynamicIndexedSet ],
 function(dis)
 local l,recursivecollect,n;
-  n := Size(dis!.gradingfuncs);
+  n := Size(dis!.indexers);
   #-----------------------------------------------------------------------------
   recursivecollect := function(table, level, bag)
     local i;
@@ -82,11 +72,20 @@ local l,recursivecollect,n;
   return l;
 end);
 
+InstallMethod( AsSortedList,"for a dynamic indexed set",
+        [ IsDynamicIndexedSet ],
+function(dis)
+  local l;
+  l := AsList(dis);
+  Sort(l);
+  return l;
+end);
+
 InstallMethod(Size,"for a multigraded set", #TODO maybe counting when adding?
         [ IsDynamicIndexedSet ],
 function(dis)
 local recursivesum,n;
-  n := Size(dis!.gradingfuncs);
+  n := Size(dis!.indexers);
   #-----------------------------------------------------------------------------
   recursivesum := function(table, level)
     local i,sum;
@@ -115,10 +114,10 @@ InstallMethod( PrintObj,"for a multigraded set",
 function(dis)
 local key;
   if IsEmpty(dis!.table) then
-    Print("<empty multi graded set with ",Size(dis!.gradingfuncs) ," layers>");
+    Print("<empty multi graded set with ",Size(dis!.indexers) ," layers>");
   else
     Print("<multi graded set with ",Size(dis), " elements in ",
-          Size(dis!.gradingfuncs) ," layers>");
+          Size(dis!.indexers) ," layers>");
   fi;
 end);
 

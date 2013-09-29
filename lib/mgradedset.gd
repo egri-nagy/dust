@@ -5,11 +5,11 @@
 ## Copyright (C) 2013  Attila Egri-Nagy
 ##
 
-DeclareGlobalFunction("MultiGradedSet");
+DeclareGlobalFunction("DynamicIndexedSet");
 
-DeclareCategory("IsMultiGradedSet", IsSortedList);
-DeclareRepresentation( "IsMultiGradedSetRep",IsComponentObjectRep,
+DeclareCategory("IsDynamicIndexedSet", IsSortedList);
+DeclareRepresentation( "IsDynamicIndexedSetRep",IsComponentObjectRep,
         [ "table", "gradingfuncs"] );
-MultiGradedSetType  :=
-  NewType(NewFamily("MultiGradedSetFamily",IsMultiGradedSet),
-          IsMultiGradedSet and IsMultiGradedSetRep);
+DynamicIndexedSetType  :=
+  NewType(NewFamily("DynamicIndexedSetFamily",IsDynamicIndexedSet),
+          IsDynamicIndexedSet and IsDynamicIndexedSetRep);

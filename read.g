@@ -7,4 +7,4 @@ ReadPackage("dust","/lib/queue.gi");
 ReadPackage("dust","/lib/assoclist.gi");
 ReadPackage("dust","/lib/indexedset.gi");
 ReadPackage("dust","/lib/dynamicindexedset.gi");
-ReadPackage("dust","/lib/mgradedhashtab.gi");
+ReadPackage("dust","/lib/dynamicindexedhashset.gi");

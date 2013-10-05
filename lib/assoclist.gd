@@ -8,6 +8,7 @@
 DeclareOperation("AssociativeList",[IsList,IsList]);
 DeclareGlobalFunction("Assign");
 DeclareGlobalFunction("Keys");
+DeclareGlobalFunction("ValueSet");
 DeclareGlobalFunction("TransformKeys");
 DeclareGlobalFunction("TransformValues");
 DeclareGlobalFunction("CombinedAssociativeList");

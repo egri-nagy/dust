@@ -57,6 +57,13 @@ function(assoclist)
     return assoclist!.keys;
 end);
 
+#it gives back the keys
+InstallGlobalFunction(ValueSet,
+function(assoclist)
+    return AsList(assoclist!.values);
+end);
+
+
 #transform the keys according to the given function
 InstallGlobalFunction(TransformKeys,
 function(assoclist,funct)

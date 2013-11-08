@@ -27,8 +27,10 @@ local cursor, i, indices;
     fi;
     cursor := cursor[indices[i]];
   od;
-  HTAdd(cursor,obj,true);
-  Add(dis!.list,obj); #double accounting
+  if HTValue(cursor,obj) = fail then
+    HTAdd(cursor,obj,true);
+    Add(dis!.list,obj); #double accounting
+  fi;
 end);
 
 InstallOtherMethod(\in, "for a dynamic indexed hash set and an object",

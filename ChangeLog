@@ -1,3 +1,5 @@
+0.1.14
+	Bugfix: MultiIndexedHashSet added element to the double account list regardless.
 0.1.13
 	ValueSet added to AssociativeList.
 0.1.12

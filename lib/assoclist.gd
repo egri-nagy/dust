@@ -7,6 +7,7 @@
 
 DeclareOperation("AssociativeList",[IsList,IsList]);
 DeclareGlobalFunction("Assign");
+DeclareGlobalFunction("Collect");
 DeclareGlobalFunction("Keys");
 DeclareGlobalFunction("ValueSet");
 DeclareGlobalFunction("TransformKeys");

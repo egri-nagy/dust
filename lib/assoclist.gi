@@ -51,6 +51,19 @@ function(assoclist, key, value)
     fi;
 end);
 
+InstallGlobalFunction(Collect,
+function(assoclist, key, value)
+  local pos;
+  pos := Position(assoclist!.keys, key);
+    if pos = fail then
+      pos := PositionSorted(assoclist!.keys, key);
+      Add(assoclist!.keys,key,pos);
+      Add(assoclist!.values, [value], pos);
+    else
+        Add(assoclist!.values[pos],value);
+    fi;
+end);
+
 #it gives back the keys
 InstallGlobalFunction(Keys,
 function(assoclist)

@@ -70,10 +70,10 @@ function(assoclist)
     return assoclist!.keys;
 end);
 
-#it gives back the keys
+#it gives back the values as a set
 InstallGlobalFunction(ValueSet,
 function(assoclist)
-    return AsList(assoclist!.values);
+    return AsSet(assoclist!.values);
 end);
 
 

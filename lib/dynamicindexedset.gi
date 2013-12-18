@@ -72,6 +72,13 @@ local l,recursivecollect,n;
   return l;
 end);
 
+InstallMethod( Iterator,"for a dynamic indexed set",
+        [ IsDynamicIndexedHashSet ],
+function(dis)
+  return Iterator(AsList(dis));
+end);
+
+
 InstallMethod( AsSortedList,"for a dynamic indexed set",
         [ IsDynamicIndexedSet ],
 function(dis)

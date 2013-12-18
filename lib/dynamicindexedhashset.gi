@@ -58,6 +58,12 @@ function(dis)
   return dis!.list;
 end);
 
+InstallMethod( Iterator,"for a dynamic indexed hashset",
+        [ IsDynamicIndexedHashSet ],
+function(dis)
+  return Iterator(dis!.list);
+end);
+
 InstallMethod( AsSortedList,"for a dynamic indexed hashset",
         [ IsDynamicIndexedHashSet ],
 function(dis)

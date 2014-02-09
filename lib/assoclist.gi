@@ -101,6 +101,8 @@ local k,al;
   return al;
 end);
 
+InstallGlobalFunction(ContainsKey,
+function(assoclist,key) return assoclist[key] <> fail; end);
 
 #accessing elements by arbitrary indices
 InstallOtherMethod( \[\],

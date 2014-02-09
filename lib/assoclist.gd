@@ -10,6 +10,7 @@ DeclareGlobalFunction("Assign");
 DeclareGlobalFunction("Collect");
 DeclareGlobalFunction("Keys");
 DeclareGlobalFunction("ValueSet");
+DeclareGlobalFunction("ContainsKey");
 DeclareGlobalFunction("TransformKeys");
 DeclareGlobalFunction("TransformValues");
 DeclareGlobalFunction("CombinedAssociativeList");

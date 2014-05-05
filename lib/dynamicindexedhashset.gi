@@ -99,7 +99,7 @@ local T,dis;
   return Size(AsSet(AsList(dis))) = Size(T);
 end;
 
-# for n=8 speedup is 10x, memory usage difference is negligeble
+# lot faster but more memory used
 TestDynamicIndexedHashSetPerformance := function(n)
   local sl, dis, partitions,p,t,b;
   partitions := PartitionsSet([1..n]);

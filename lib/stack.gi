@@ -29,7 +29,13 @@ local result, pointer;
 end);
 
 InstallMethod(Peek,"peeking to top element of a stack",[IsStack and IsStackRep],
-function(stack) return stack!.l[stack!.pointer]; end);
+function(stack)
+  if Size(stack!.l) = 0 then
+    return fail;
+  else
+    return stack!.l[stack!.pointer];
+  fi;  
+end);
 
 #More general methods ##########################################################
 InstallMethod(IsEmpty, "for stacks", [IsStack and IsStackRep],

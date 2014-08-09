@@ -13,6 +13,7 @@ function() return Objectify(DuplicateFreeStackType, rec(l:=[],pointer:=0,set:=[]
 ##Storage methods ##############################################################
 InstallMethod(Store,"push for a stack",[IsDuplicateFreeStack and IsDuplicateFreeStackRep,IsObject],
 function(stack, element)
+  #Print("#\c");
   if element in stack!.set then return; fi;
   stack!.pointer := stack!.pointer + 1;
   stack!.l[stack!.pointer] := element;

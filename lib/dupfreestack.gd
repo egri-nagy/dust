@@ -13,7 +13,7 @@ DeclareRepresentation( "IsDuplicateFreeStackRep",
                        [ "set" ] );      #set (sorted list for lookup)
 
 DuplicateFreeStackType  := NewType(
-    NewFamily("StackFamily",IsDuplicateFreeStack),
+    NewFamily("DuplicateFreeStackFamily",IsDuplicateFreeStack),
     IsDuplicateFreeStack and IsDuplicateFreeStackRep and IsMutable);
 
 #############################################################################

@@ -4,9 +4,9 @@ PackageName := "dust",
 
 Subtitle := "Extra Data Strucutre for GAP",
 
-Version := "0.1.19",
+Version := "0.1.20",
 
-Date := "09/08/2014",
+Date := "02/01/2015",
 
 ArchiveURL := "http://sgpdec.sf.net",
 
@@ -30,16 +30,16 @@ Persons := [
 
 Status := "dev",
 
-README_URL := "https://bitbucket.org/dersu/dust",
+README_URL := "https://bitbucket.org/egri-nagy/dust",
 
-PackageInfoURL := "https://bitbucket.org/dersu/dust",
+PackageInfoURL := "https://bitbucket.org/egri-nagy/dust",
 
 
 AbstractHTML :=
   "<span class=\"pkgname\">dust</span> is  a <span class=\"pkgname\">GAP</span> package \
    for extra data structures like associative lists, lazy cartesian products, etc.",
 
-PackageWWWHome := "https://bitbucket.org/dersu/dust",
+PackageWWWHome := "https://bitbucket.org/egri-nagy/dust",
 
 PackageDoc := rec(
   BookName  := "dust",

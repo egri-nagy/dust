@@ -27,7 +27,7 @@ end);
 InstallMethod(Peek,"peeking to top element of a random set - constant fail",
         [IsRandomSet and IsRandomSetRep],
 function(rndset)
-  return fail; # isnce it does not make sense
+  return fail; # since it does not make sense
 end);
 
 #More general methods ##########################################################

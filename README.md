@@ -1,4 +1,4 @@
-DUST - GAP package for additional generic data structures. 
+# DUST - GAP package for additional generic data structures. 
 
 Dust is everywhere, but will be wiped off (eventually,
 i.e. incorporated into some other package or GAP itself).

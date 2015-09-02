@@ -54,3 +54,7 @@ function( stack ) Print("DuplicateFreeStack: ", stack!.l, "<-"); end);
 
 InstallMethod( Display,"for stack", [IsDuplicateFreeStack and IsDuplicateFreeStackRep],
 function( stack ) ViewObj(stack); Print("\n"); end);
+
+#exposing the underlying list TODO maybe do the other way around, accept a function
+InstallMethod(AsList, "for duplicate free stack", [IsDuplicateFreeStack and IsDuplicateFreeStackRep],
+function(stack) return ShallowCopy(stack!.l);end);

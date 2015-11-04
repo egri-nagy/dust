@@ -8,6 +8,7 @@
 DeclareOperation("AssociativeList",[IsList,IsList]);
 DeclareGlobalFunction("Assign");
 DeclareGlobalFunction("Collect");
+DeclareGlobalFunction("Count");
 DeclareGlobalFunction("Keys");
 DeclareGlobalFunction("ValueSet");
 DeclareGlobalFunction("ContainsKey");

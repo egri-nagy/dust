@@ -11,6 +11,7 @@ DeclareGlobalFunction("Lookup");
 DeclareGlobalFunction("Collect");
 DeclareGlobalFunction("Count");
 DeclareGlobalFunction("Keys");
+DeclareGlobalFunction("Values");
 DeclareGlobalFunction("ValueSet");
 DeclareGlobalFunction("ContainsKey");
 DeclareGlobalFunction("TransformKeys");

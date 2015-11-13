@@ -73,11 +73,16 @@ function(assoclist, key)
   fi;
 end);
 
-
+# TODO: next two functions are invitations for mutability disasters!
 #it gives back the keys
 InstallGlobalFunction(Keys,
 function(assoclist)
     return assoclist!.keys;
+end);
+
+InstallGlobalFunction(Values,
+function(assoclist)
+  return assoclist!.values;
 end);
 
 #it gives back the values as a set

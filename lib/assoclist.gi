@@ -5,20 +5,24 @@
 ## Copyright (C)  Attila Egri-Nagy
 ##
 
+#an empty associative list
+InstallOtherMethod(AssociativeList,
+        "empty assoclist", true, [],
+        function()
+  return Objectify(AssociativeListType,
+                 rec(keys:=[], values:=[]));
+end);
+
 #construct an associative list loaded based on keys and values
 InstallMethod(AssociativeList,"for two lists", true, [IsList, IsList],
 function(keys, values)
-  local assoclist,i,pos;
+  local al,i,pos;
   #sanity check
   if Size(keys) <> Size(values) then return fail; fi;
 
-  assoclist := rec(keys:=[], values:=[]);
-  for i in [1..Length(keys)] do
-    pos := PositionSorted(assoclist.keys, keys[i]);
-    Add(assoclist.keys,keys[i],pos);
-    Add(assoclist.values, values[i], pos);
-  od;
-  return Objectify(AssociativeListType, assoclist);
+  al := AssociativeList();
+  Perform([1..Length(keys)], function(x) Assign(al, keys[x], values[x]); end);
+  return al;
 end);
 
 #mapping keys to their positions
@@ -26,14 +30,6 @@ InstallOtherMethod(AssociativeList,
         "for a list mapping elemetns to their positions", true, [IsList],0,
 function(keys)
   return AssociativeList(keys,[1..Length(keys)]);
-end);
-
-#an empty associative list
-InstallOtherMethod(AssociativeList,
-        "empty assoclist", true, [],
-function()
-  return Objectify(AssociativeListType,
-                 rec(keys:=[], values:=[]));
 end);
 
 # unfortunately list assignment works only with integrals

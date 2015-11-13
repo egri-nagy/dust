@@ -114,10 +114,7 @@ end);
 InstallGlobalFunction(ContainsKey,
 function(assoclist,key) return assoclist[key] <> fail; end);
 
-#accessing elements by arbitrary indices
-InstallOtherMethod( \[\],
-    "for associative lists",
-    [ IsAssociativeList, IsObject],
+InstallGlobalFunction(Lookup,
 function( assoclist, key )
   local pos;
   pos := Position(assoclist!.keys, key);
@@ -127,6 +124,11 @@ function( assoclist, key )
     return fail;
   fi;
 end);
+
+#accessing elements by arbitrary indices
+InstallOtherMethod( \[\],
+    "for associative lists",
+    [ IsAssociativeList, IsObject], Lookup);
 
 #if the keyset is the same then we can combine the values
 InstallGlobalFunction(CombinedAssociativeList,

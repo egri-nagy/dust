@@ -4,9 +4,9 @@ PackageName := "dust",
 
 Subtitle := "Extra Data Strucutre for GAP",
 
-Version := "0.1.21",
+Version := "0.1.22",
 
-Date := "04/11/2015",
+Date := "13/11/2015",
 
 ArchiveURL := "http://sgpdec.sf.net",
 
@@ -55,7 +55,7 @@ PackageDoc := rec(
 Dependencies := rec(
  GAP := ">=4.7",
                    NeededOtherPackages := [["GAPDoc", ">= 1.5"]],  #StringPrint
-                    NeededOtherPackages := [["Orb", ">= 4.6"]],  
+                    NeededOtherPackages := [["Orb", ">= 4.7"]],
  SuggestedOtherPackages := [ ],
  ExternalConditions := []
 ),

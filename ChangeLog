@@ -1,3 +1,5 @@
+0.2
+	"wiping the dust" - removing complex monster indexed sets.
 0.1.23
 	Adding Values for AssociativeList, warnings in code about mutability.
 0.1.22

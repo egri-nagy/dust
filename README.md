@@ -1,4 +1,6 @@
-# DUST
+# DUST - OBSOLETE
+
+Some code went into SubSemi and BioGAP.
 
 ## GAP package for additional generic data structures. 
 
